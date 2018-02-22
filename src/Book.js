@@ -16,6 +16,20 @@ class Book extends Component {
     }
 
     render = () => {
+        // Iterate over the array of authors to create a single author string
+        let authors = '';
+        if (this.props.bookAuthors) {
+            this
+                .props
+                .bookAuthors
+                .forEach(author => {
+                    console.log(author);
+                    authors += author + ' | ';
+                });
+        }
+        // Delete the last three charaters from the authors string
+        authors = authors.slice(0, authors.length - 3);
+
         return (
             <div className="book">
                 <div className="book-top">
@@ -27,7 +41,9 @@ class Book extends Component {
                         backgroundImage: `url(${this.props.coverImage})`
                     }}></div>
                     <div className="book-shelf-changer">
-                        <select value={this.state.shelfSelection} onChange={(e) => this.onChangeShelf(e.target.value)}>
+                        <select
+                            value={this.state.shelfSelection}
+                            onChange={(e) => this.onChangeShelf(e.target.value)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -37,7 +53,7 @@ class Book extends Component {
                     </div>
                 </div>
                 <div className="book-title">{this.props.bookTitle}</div>
-                <div className="book-authors">{this.props.bookAuthor}</div>
+                <div className="book-authors">{authors}</div>
             </div>
         )
     }
