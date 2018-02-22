@@ -12,7 +12,6 @@ class Book extends Component {
     }
 
     onChangeShelf = (value) => {
-        console.log(value);
         this.setState({shelfSelection: value});
     }
 
@@ -25,7 +24,7 @@ class Book extends Component {
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: this.props.backgroundImage
+                        backgroundImage: `url(${this.props.coverImage})`
                     }}></div>
                     <div className="book-shelf-changer">
                         <select value={this.state.shelfSelection} onChange={(e) => this.onChangeShelf(e.target.value)}>
