@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
 
 class Search extends Component {
+
+    componentDidMount = () => {
+        // Update the list of all books
+        this.props.onRefreshAllBooks();
+    }
 
     render = () => {
         return (
@@ -23,7 +30,16 @@ class Search extends Component {
                         </div>
                     </div>
                     <div className="search-books-results">
-                        <ol className="books-grid"></ol>
+                        <ol className="books-grid">
+                            {this.props.books && this
+                                .props
+                                .books
+                                .map(book => (
+                                    <li key={book.id}>
+                                        <Book book={book} onChangeShelf={this.props.onChangeShelf}/>
+                                    </li>
+                                ))}
+                        </ol>
                     </div>
                 </div>
             </div>

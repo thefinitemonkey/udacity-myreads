@@ -4,6 +4,11 @@ import Bookshelf from './Bookshelf';
 
 class Bookshelves extends Component {
 
+    componentDidMount = () => {
+        // Update the list of all books
+        this.props.onRefreshAllBooks();
+    }
+    
     updateShelves = () => {
         // Update the state of the individual shelves to contain the appropriate books
         // for each
