@@ -7,23 +7,24 @@ class Book extends Component {
         this.props = props;
 
         this.state = {
-            shelfSelection: this.props.shelfSelection || "none"
+            shelfSelection: this.props.book.shelf || "none"
         }
     }
 
-    onChangeShelf = (value) => {
-        this.setState({shelfSelection: value});
+    onChangeShelf = (book, shelf) => {
+        this.setState({shelfSelection: shelf});
+        this.props.onChangeShelf(book, shelf);
     }
 
     render = () => {
         // Iterate over the array of authors to create a single author string
         let authors = '';
-        if (this.props.bookAuthors) {
+        if (this.props.book.authors) {
             this
                 .props
-                .bookAuthors
+                .book
+                .authors
                 .forEach(author => {
-                    console.log(author);
                     authors += author + ' | ';
                 });
         }
@@ -38,12 +39,12 @@ class Book extends Component {
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${this.props.coverImage})`
+                        backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})`
                     }}></div>
                     <div className="book-shelf-changer">
                         <select
                             value={this.state.shelfSelection}
-                            onChange={(e) => this.onChangeShelf(e.target.value)}>
+                            onChange={(e) => this.onChangeShelf(this.props.book, e.target.value)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -52,7 +53,7 @@ class Book extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{this.props.bookTitle}</div>
+                <div className="book-title">{this.props.book.title}</div>
                 <div className="book-authors">{authors}</div>
             </div>
         )

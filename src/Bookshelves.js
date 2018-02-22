@@ -44,7 +44,7 @@ class Bookshelves extends Component {
                     </div>
                     <div className="list-books-content">
                         <div>
-                            {shelves && shelves.map((shelf) => (<Bookshelf key={shelf.name} shelf={shelf}/>))}
+                            {shelves && shelves.map((shelf) => (<Bookshelf key={shelf.name} shelf={shelf} onChangeShelf={this.props.onChangeShelf} />))}
                         </div>
                     </div>
                     <div className="open-search">

@@ -19,10 +19,25 @@ class BooksApp extends React.Component {
     });
   }
 
+  changeShelf = (book, shelf) => {
+    // Make the call to the service to update the shelf for the
+    // selected book to the newly selected shelf
+    BooksAPI.update(book, shelf).then(response => {
+      // Update the state of the book. Start with a copy of the
+      // list of books.
+      const newList = this.state.books.slice(0);
+      // Book is a reference to the same object in both lists
+      // so just update the book with the new shelf
+      book.shelf = shelf;
+      // Update the state with the newList
+      this.setState({books: newList});
+    })
+  }
+
   render = () => {
     return (
       <div className="app">
-        <Route exact path='/' render={(() => (<Bookshelves books={this.state.books}/>))}/>
+        <Route exact path='/' render={(() => (<Bookshelves books={this.state.books} onChangeShelf={this.changeShelf} />))}/>
 
         <Route exact path='/search' render={(() => (<Search/>))}/>
 
