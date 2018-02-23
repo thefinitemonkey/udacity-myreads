@@ -4,24 +4,35 @@ import './App.css';
 import {Route} from 'react-router-dom';
 import Search from './Search';
 import Bookshelves from './Bookshelves';
+import * as BookUtils from './BookUtils';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    newBook: true
   }
 
   componentDidMount = () => {
-    this.refreshAllBooks();
+    if (this.state.newBook) {
+      this.refreshAllBooks();
+    }
   }
 
   refreshAllBooks = () => {
     // Get the books currently on the bookshelves and update the state with the
-    // returned list
+    // returned, sorted list
     BooksAPI
       .getAll()
       .then((list) => {
-        this.setState({books: list});
+        this.setState({
+          books: BookUtils.sortAllBooks(list),
+          newBook: false
+        });
       });
+  }
+
+  bookAdded = () => {
+    this.setState({"newBook": true});
   }
 
   changeShelf = (book, shelf) => {
@@ -31,13 +42,20 @@ class BooksApp extends React.Component {
       .update(book, shelf)
       .then(response => {
         // Update the state of the book. Start with a copy of the list of books.
-        const newList = this
+        let newList = this
           .state
           .books
           .slice(0);
-        // Book is a reference to the same object in both lists so just update the book
-        // with the new shelf
-        book.shelf = shelf;
+        // Look for the book in the list. It might not be there yet.
+        const books = newList.filter(listBook => listBook.id === book.id);
+        if (books.length) {
+          // Update the book that's already on the shelf
+          books[0].shelf = shelf;
+        } else {
+          // Add the book to the shelf and sort the list of books again
+          newList.push(book);
+          newList = BookUtils.sortAllBooks(newList);
+        }
         // Update the state with the newList
         this.setState({books: newList});
       })
@@ -57,10 +75,7 @@ class BooksApp extends React.Component {
         <Route
           exact
           path='/search'
-          render={(() => (<Search
-          onChangeShelf={this.changeShelf}
-          onRefreshAllBooks={this.refreshAllBooks}
-          books={this.state.books}/>))}/>
+          render={(() => (<Search selectedBooks={this.state.books} onChangeShelf={this.changeShelf} />))}/>
 
       </div>
     )
