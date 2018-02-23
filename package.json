@@ -3,6 +3,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-modal-dialog": "^4.0.7",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {

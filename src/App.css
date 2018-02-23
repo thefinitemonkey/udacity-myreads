@@ -172,3 +172,59 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+.book-cover-button {
+  cursor: pointer;
+}
+
+.book-authors ol {
+  padding: 0;
+}
+
+.book-authors li {
+  list-style: none;
+}
+
+.book-quick-view {
+  margin: 0 0 15px 0;
+}
+
+.book-quick-view .book-title {
+  margin: 0;
+}
+
+.book-quick-view .book-title h2 {
+  margin: 0 0 10px 0;
+}
+
+.book-quick-view-details {
+  display: flex;
+}
+
+.book-quick-view-details .book-right {
+  margin: 0px 25px;
+}
+
+.book-quick-view .book-pages {
+  margin: 15px 0 0 0;
+  font-size: 0.8em;
+}
+
+.book-right h3 {
+  margin: 0;
+  font-size: 1.0em;
+}
+
+.book-right ol {
+  margin: 0;
+}
+
+.book-right .book-info-link {
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.book-quick-view-details .book-shelf-changer {
+  bottom: 5px;
+  right: 5px;
+}

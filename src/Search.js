@@ -3,16 +3,18 @@ import {Link} from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import * as BookUtils from './BookUtils';
+import BookQuickView from './BookQuickView';
 
 class Search extends Component {
 
     state = {
         query: "",
-        books: []
+        books: [],
+        quickView: {},
+        showModal: false
     };
 
     queryTimer = null;
-
 
     changeQuery = (value) => {
         // Update the query then wait a quarter second before actually executing the
@@ -41,8 +43,8 @@ class Search extends Component {
                 if (response === undefined || (response.error && response.error !== "empty query")) {
                     newError = true;
                 } else if (response.length) {
-                    // Check the list of books the user already has on their shelves against
-                    // the search results and apply shelf data accordingly
+                    // Check the list of books the user already has on their shelves against the
+                    // search results and apply shelf data accordingly
                     newList = BookUtils.mergeShelfAndSearch(this.props.selectedBooks, response);
                     newList = BookUtils.sortAllBooks(newList);
                 }
@@ -50,6 +52,16 @@ class Search extends Component {
                 // Set the state based on the new response
                 this.setState({error: newError, books: newList});
             })
+    }
+
+    updateQuickView = (e, book) => {
+        e.preventDefault();
+        // New book for a quick view
+        this.setState({quickView: book, showModal: true});
+    }
+
+    closeQuickView = () => {
+        this.setState({quickView: {}, showModal: false});
     }
 
     render = () => {
@@ -82,7 +94,8 @@ class Search extends Component {
                         )}
                         {!this.state.error && (
                             <span className="search-count">
-                                {this.state.books.length} books match your search
+                                {this.state.books.length}&nbsp;
+                                books match your search
                             </span>
                         )}
                         <ol className="books-grid">
@@ -91,10 +104,20 @@ class Search extends Component {
                                 .books
                                 .map(book => (
                                     <li key={book.id}>
-                                        <Book book={book} onChangeShelf={this.props.onChangeShelf}/>
+                                        <Book
+                                            book={book}
+                                            onChangeShelf={this.props.onChangeShelf}
+                                            onUpdateQuickView={this.updateQuickView}/>
                                     </li>
                                 ))}
                         </ol>
+                    </div>
+                    <div className="search-quick-view">
+                        <BookQuickView
+                            book={this.state.quickView}
+                            showModal={this.state.showModal}
+                            onCloseModal={this.closeQuickView}
+                            onChangeShelf={this.props.onChangeShelf}/>
                     </div>
                 </div>
             </div>
