@@ -1,8 +1,6 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+This is the completed MyReads project from Doug Brown (dougb@finitemonkey.com). All functionality required by the rubrik has been added, along with a couple extra bits. Notably, there is a QuickView available by clicking on any of the book covers. This is done by including the react-modal-dialog component into the app.
 
 ## TL;DR
 
@@ -30,7 +28,14 @@ To get started developing right away:
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
     ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── Book.js # Book component file for book display in Search and Main.
+    ├── BookQuickView.js # Quick view to display when book covers are clicked on anywhere in the application.
+    ├── Bookshelf.js # Component for the display of a specific collection of books.
+    ├── BookshelfChanger.js # Component used for displaying and changing the shelf on which a particular book resides.
+    ├── Bookshelves.js # Component for the display of multiple Bookshelf components.
+    ├── BookUtils.js # Utility functions for sorting and merging book data.
+    └── Search.js # Component for the display of search entry and results.
 ```
 
 Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
