@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 
 class BookshelfChanger extends Component {
 
-    state = {shelfSelection: this.props.book.shelf};
+    state = {
+        shelfSelection: this.props.book.shelf || "none"
+    }
 
     onChangeShelf = (book, shelf) => {
-        // Set the state for the shelf selection and make the call
-        // back up the chain
+        // Set the state for the shelf selection and make the call back up the chain
         this.setState({shelfSelection: shelf});
         this
             .props
             .onChangeShelf(book, shelf);
     }
-
 
     render = () => {
         return (
