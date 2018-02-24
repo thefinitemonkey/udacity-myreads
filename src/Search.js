@@ -54,8 +54,16 @@ class Search extends Component {
             })
     }
 
+    componentWillReceiveProps = (props) => {
+        // Re-merge and sort the shelf and search lists and set the state
+        this.props = props;
+        let newList = BookUtils.mergeShelfAndSearch(this.props.selectedBooks, this.state.books);
+        newList = BookUtils.sortAllBooks(newList);
+        this.setState({books: newList});
+        console.log("update search", this.state.books);
+    }
+
     updateQuickView = (e, book) => {
-        e.preventDefault();
         // New book for a quick view
         this.setState({quickView: book, showModal: true});
     }
@@ -94,8 +102,7 @@ class Search extends Component {
                         )}
                         {!this.state.error && (
                             <span className="search-count">
-                                {this.state.books.length}&nbsp;
-                                books match your search
+                                {this.state.books.length}&nbsp; books match your search
                             </span>
                         )}
                         <ol className="books-grid">

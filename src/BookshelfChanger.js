@@ -14,6 +14,11 @@ class BookshelfChanger extends Component {
             .onChangeShelf(book, shelf);
     }
 
+    componentWillReceiveProps = (props) => {
+        this.props = props;
+        this.setState({shelfSelection: this.props.book.shelf});
+    }
+
     render = () => {
         return (
             <div className="book-shelf-changer">

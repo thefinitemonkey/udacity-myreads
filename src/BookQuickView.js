@@ -32,7 +32,6 @@ class BookQuickView extends Component {
         // Make sure the authors is an array
         if (!Array.isArray(authors)) 
             return null;
-        console.log(authors);
         // Build out the list of authors for display
         return (
             <ol>
