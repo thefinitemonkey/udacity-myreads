@@ -22,9 +22,11 @@ export const sortAllBooks = (list) => {
 export const mergeShelfAndSearch = (shelf, search) => {
     // For each book in the search results, check if it already
     // exists in the shelf data
-    search.forEach(searchBook => {
-        const shelfBooks = shelf.filter(shelfBook => shelfBook.id === searchBook.id);
-        if (shelfBooks.length) searchBook.shelf = shelfBooks[0].shelf;
+    const hashTable = {};
+    shelf.forEach(book => hashTable[book.id] = book.shelf);
+
+    search.forEach(book => {
+        book.shelf = hashTable[book.id] || 'none';
     });
 
     return search;

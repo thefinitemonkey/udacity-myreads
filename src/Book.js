@@ -8,19 +8,8 @@ class Book extends Component {
     }
 
     render = () => {
-        // Iterate over the array of authors to create a single author string
-        let authors = '';
-        if (this.props.book.authors && Array.isArray(this.props.book.authors)) {
-            this
-                .props
-                .book
-                .authors
-                .forEach(author => {
-                    authors += author + ' | ';
-                });
-        }
-        // Delete the last three charaters from the authors string
-        authors = authors.slice(0, authors.length - 3);
+        // Join the array of authors to create a single author string
+        const authors = this.props.book.authors && this.props.book.authors.join(' | ');
 
         // Create thumbnail url
         let url = (this.props.book.imageLinks && `url(${this.props.book.imageLinks.thumbnail})`);

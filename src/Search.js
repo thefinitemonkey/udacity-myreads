@@ -60,7 +60,6 @@ class Search extends Component {
         let newList = BookUtils.mergeShelfAndSearch(this.props.selectedBooks, this.state.books);
         newList = BookUtils.sortAllBooks(newList);
         this.setState({books: newList});
-        console.log("update search", this.state.books);
     }
 
     updateQuickView = (e, book) => {
